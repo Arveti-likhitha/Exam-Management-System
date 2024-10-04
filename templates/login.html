@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="LoginFrm">
+    <form action="" method="POST" class="forms">
+        <h1 class="title">Login</h1>
+
+        <div class="inputContainer">
+            <input type="text" name="email_or_username" class="input" required>
+            <label class="label">Email</label>
+        </div>
+
+        <div class="inputContainer">
+            <input type="password" name="password" class="input" required>
+            <label class="label">Password</label>
+        </div>
+
+        <input type="submit" class="submitBtn" value="Submit">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </form>
+</div>
+{% endblock %}

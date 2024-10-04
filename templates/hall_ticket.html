@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<head>
+    <title>Hall Ticket</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Hall Ticket</h1>
+        <p><strong>Full Name: </strong> {{ student.full_name }}</p>
+        <p><strong>Registration Number: </strong> {{ student.reg_no }}</p>
+        <p><strong>Gender: </strong> {{ student.gender }}</p>
+        <p><strong>Department: </strong> {{ student.department }}</p>
+        <p><strong>Semester: </strong> {{ student.semester }}</p>
+
+        <h2>Exam Timetable</h2>
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Exam Date</th>
+            <th>Exam Time</th>
+        </tr>
+        {% for exam in timetable %}
+        <tr>
+            <td>{{ exam.subject }}</td>
+            <td>{{ exam.exam_date }}</td>
+            <td>{{ exam.exam_time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+        <div id="imgbox">
+            <img id="qrImage" src="" alt="QR Code">
+        </div>
+        <button onclick="printPage()">Print</button>
+    </div>
+
+    <script>
+        function GenerateQR() {
+            const studentDetails = `Full Name: {{ student.full_name }}, Registration Number: {{ student.reg_no }}, Gender: {{ student.gender }}, Department: {{ student.department }}, Semester: {{ student.semester }}`;
+            const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(studentDetails);
+            document.getElementById("qrImage").src = qrUrl;
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        window.onload = GenerateQR;
+    </script>
+</body>
+{% endblock %}

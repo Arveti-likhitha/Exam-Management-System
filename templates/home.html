@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>Welcome to Exam Reforms</h1>
+<br>
+<br>
+<br>
+    <div class="button-container">
+        <a href="{{ url_for('student_register') }}">
+            <button type="button" class="centered-button">Student Registration</button>
+        </a>
+        <a href="{{ url_for('hall_ticket_generation') }}">
+            <button type="button" class="centered-button">Hall Ticket Generation</button>
+        </a>
+        <a href="{{ url_for('exam_attendance') }}">
+            <button type="button" class="centered-button">Exam Attendance</button>
+        </a>
+        <a href="{{ url_for('subject_enrollment') }}">
+            <button type="button" class="centered-button">Subject Enrollment</button>
+        </a>
+        <a href="{{ url_for('exam_time_table') }}">
+            <button type="button" class="centered-button">Exam TimeTable</button>
+        </a>
+    </div>
+{% endblock %}

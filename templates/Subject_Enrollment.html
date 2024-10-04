@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="SubjectEnroll">
+
+    <form id="registerForm" action="{{ url_for('subject_enrollment') }}" method="POST" class="form">
+        <h1 class="title">Subject Details</h1>
+
+        <div class="inputContainer">
+            <input type="text" class="input" name="sub_code" placeholder="Subject Code">
+            <label class="label">Subject Code</label>
+        </div>
+
+        <div class="inputContainer">
+            <input type="text" class="input" name="sub_name" placeholder="Subject Name">
+            <label class="label">Subject Name</label>
+        </div>
+
+        <div class="inputContainer">
+            <select name="semester" class="input selectInput">
+                <option value="" disabled selected>Select Semester</option>
+                <option value="Semester 1">Semester 1</option>
+                <option value="Semester 2">Semester 2</option>
+                <option value="Semester 3">Semester 3</option>
+                <option value="Semester 4">Semester 4</option>
+                <option value="Semester 5">Semester 5</option>
+                <option value="Semester 6">Semester 6</option>
+                <option value="Semester 7">Semester 7</option>
+                <option value="Semester 8">Semester 8</option>
+            </select>
+            <label class="label">Semester</label>
+        </div>
+
+        <input type="submit" class="submitBtn" value="Submit">
+    </form>
+</div>
+
+{% endblock %}

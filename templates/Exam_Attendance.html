@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Attendance</title>
+</head>
+<body>
+    <div id="qr-result"></div>
+    <h1>Scan QR Code</h1>
+    <div style="display: flex; justify-content: center;">
+        <div id="qr-reader" style="width: 500px;"></div>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <script>
+        function domReady(fn) {
+            if(document.readyState === "complete" || document.readyState === "interactive") {
+                setTimeout(fn, 1)
+            } else {
+                document.addEventListener("DOMContentLoaded", fn)
+            }
+        }
+
+        domReady(function(){
+            let lastResult;
+
+            function onScanSuccess(decodedText) {
+                if(decodedText !== lastResult){
+                    lastResult = decodedText;
+
+                    let qrData = {
+                        student_id: decodedText.trim()
+                    };
+
+                    fetch('/exam_attendance', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({qr_data: qrData})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === 'success') {
+                            alert('Attendance marked successfully!');
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            }
+
+            let html5QrCodeScanner = new Html5QrcodeScanner(
+                "qr-reader", { fps: 10, qrbox: 250 });
+            html5QrCodeScanner.render(onScanSuccess);
+        });
+    </script>
+</body>
+</html>

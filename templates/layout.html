@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forgot_password.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='student_enrollment.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Exam_timetable.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='hallticket.css') }}">
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                  {{ message }}
+                </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script> src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1>Hall Ticket Generation</h1>
+<br>
+<br>
+<br>
+<div class="button-container">
+    <form id="hallTicketForm" action="{{ url_for('generate_hall_ticket') }}" method="POST" class="forms">
+        <div class="inputContainer">
+            <input type="text" class="input" name="reg_no" placeholder="Registration Number" required>
+            <label class="label">Registration Number</label>
+        </div>
+
+        <div class="inputContainer">
+            <select name="semester" class="input selectInput">
+                <option value="" disabled selected>Select Semester</option>
+                <option value="Semester 1">Semester 1</option>
+                <option value="Semester 2">Semester 2</option>
+                <option value="Semester 3">Semester 3</option>
+                <option value="Semester 4">Semester 4</option>
+                <option value="Semester 5">Semester 5</option>
+                <option value="Semester 6">Semester 6</option>
+                <option value="Semester 7">Semester 7</option>
+                <option value="Semester 8">Semester 8</option>
+            </select>
+            <label class="label">Semester</label>
+        </div>
+
+        <input type="submit" class="submitBtn" value="Check Registration Number">
+    </form>
+
+    <form id="printForm" action="{{ url_for('print_hall_ticket') }}" method="POST" style="display: none;">
+        <input type="hidden" name="reg_no" id="reg_no_input">
+        <button type="submit" class="centered-button" id="generateBtn" disabled>Generate Hall Ticket</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('hallTicketForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const regNo = document.querySelector('input[name="reg_no"]').value;
+        fetch('/verify_registration_number', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ reg_no: regNo })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exists) {
+                document.getElementById('generateBtn').disabled = false;
+                document.getElementById('printForm').style.display = 'block';
+                document.getElementById('reg_no_input').value = regNo;
+            } else {
+                alert('Registration number not found.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="RegisterFrm">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form id="registerForm" action="{{ url_for('register') }}" method="POST" class="form">
+        <h1 class="title">Register</h1>
+
+        <div class="inputContainer">
+            <input type="text" class="input" name="full_name" placeholder="Full Name">
+            <label class="label">Full Name</label>
+        </div>
+
+        <div class="inputContainer">
+            <input type="text" class="input" name="employee_id" placeholder="Employee Id">
+            <label class="label">Employee ID</label>
+        </div>
+
+        <div class="inputContainer">
+            <input type="text" class="input" name="email" placeholder="Email">
+            <label class="label">Email</label>
+        </div>
+
+        <div class="inputContainer">
+            <input type="tel" class="input" name="phone_number" placeholder="Phone No.">
+            <label class="label">Phone No.</label>
+        </div>
+
+        <div class="inputContainer">
+            <label class="label">Gender</label>
+            <div class="radioContainer">
+                <label for="male">
+                    <input type="radio" id="male" name="gender" value="male"> Male
+                </label>
+                <label for="female">
+                    <input type="radio" id="female" name="gender" value="female"> Female
+                </label>
+            </div>
+        </div>
+
+        <div class="inputContainer">
+            <input type="password" class="input" name="password" placeholder="Password">
+            <label class="label">Password</label>
+        </div>
+
+        <div class="inputContainer">
+            <input type="password" class="input" name="confirm_password" placeholder="Confirm Password">
+            <label class="label">Confirm Password</label>
+        </div>
+
+        <input type="submit" class="submitBtn" value="Submit">
+    </form>
+</div>
+
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        let phoneNumber = document.querySelector('input[name="phone_number"]').value;
+        if (phoneNumber.length !== 10) {
+            alert('Phone number must be 10 digits.');
+            event.preventDefault();
+        }
+    });
+</script>
+{% endblock %}

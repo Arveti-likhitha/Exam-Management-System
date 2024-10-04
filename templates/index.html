@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>Exam Reforms</h1>
+<br>
+<br>
+<br>
+    <div class="button-container">
+        <a href="{{ url_for('register') }}">
+            <button type="button" class="centered-button">Register</button>
+        </a>
+        <a href="{{ url_for('login') }}">
+            <button type="button" class="centered-button">Login</button>
+        </a>
+    </div>
+{% endblock %}
